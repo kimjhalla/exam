@@ -1,9 +1,9 @@
-package com.kb.exam.user.service;
+package com.kb.exam.domain.user.service;
 
 import com.kb.exam.common.CommonResponse;
-import com.kb.exam.user.vo.UserJoinVO;
-import com.kb.exam.user.vo.UserLoginResponseVO;
-import com.kb.exam.user.vo.UserLoginVO;
+import com.kb.exam.domain.user.vo.UserJoinVO;
+import com.kb.exam.domain.user.vo.UserLoginResponseVO;
+import com.kb.exam.domain.user.vo.UserLoginVO;
 import org.springframework.stereotype.Service;
 
 @Service

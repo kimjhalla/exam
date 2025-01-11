@@ -1,4 +1,4 @@
-package com.kb.exam.user.vo;
+package com.kb.exam.domain.user.vo;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

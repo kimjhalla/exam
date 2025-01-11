@@ -1,9 +1,9 @@
-package com.kb.exam.user.controller;
+package com.kb.exam.domain.user.controller;
 
 import com.kb.exam.common.CommonResponse;
-import com.kb.exam.user.service.UserService;
-import com.kb.exam.user.vo.UserJoinVO;
-import com.kb.exam.user.vo.UserLoginVO;
+import com.kb.exam.domain.user.service.UserService;
+import com.kb.exam.domain.user.vo.UserJoinVO;
+import com.kb.exam.domain.user.vo.UserLoginVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +24,7 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "")
-    public ResponseEntity<CommonResponse> login(UserLoginVO vo) {
+    public ResponseEntity<CommonResponse> login(@RequestBody UserLoginVO vo) {
         return ResponseEntity.ok(userService.login(vo));
     }
 

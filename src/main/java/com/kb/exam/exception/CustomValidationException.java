@@ -1,4 +1,4 @@
-package com.kb.exam.exceptions;
+package com.kb.exam.exception;
 
 import lombok.Getter;
 

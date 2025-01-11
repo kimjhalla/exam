@@ -1,6 +1,6 @@
-package com.kb.exam.user.vo;
+package com.kb.exam.domain.user.vo;
 
-import com.kb.exam.exceptions.CustomValidationException;
+import com.kb.exam.exception.CustomValidationException;
 import org.apache.commons.lang3.StringUtils;
 
 public record UserJoinVO(String name, String nickname, String email, String password) {

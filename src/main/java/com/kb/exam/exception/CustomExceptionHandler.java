@@ -1,4 +1,4 @@
-package com.kb.exam.exceptions;
+package com.kb.exam.exception;
 
 import com.kb.exam.common.CommonResponse;
 import org.springframework.http.ResponseEntity;

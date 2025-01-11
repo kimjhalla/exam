@@ -1,6 +1,7 @@
 package com.kb.exam.user.service;
 
-import com.kb.exam.user.vo.UserLoginVO;
+import com.kb.exam.domain.user.service.UserService;
+import com.kb.exam.domain.user.vo.UserLoginVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

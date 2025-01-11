@@ -18,7 +18,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/user/**").permitAll() // 특정 경로 허용
+                        .requestMatchers("user/**").permitAll() // 특정 경로 허용
                         .anyRequest().authenticated() // 나머지는 인증 필요
                 );
 //                .formLogin(form -> form // 폼 기반 로그인 설정

@@ -1,17 +1,28 @@
 package com.kb.exam.user.service;
 
+import com.kb.exam.common.CommonResponse;
+import com.kb.exam.user.vo.UserJoinVO;
+import com.kb.exam.user.vo.UserLoginResponseVO;
 import com.kb.exam.user.vo.UserLoginVO;
-import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
 
-    public int login(UserLoginVO userLoginVO) {
-        return 0;
+    public CommonResponse login(UserLoginVO userLoginVO) {
+        userLoginVO.email();
+        userLoginVO.password();
+        // 성공이면 access/refresh 토큰 전달
+
+        // 실패이면 오류 전달
+        return new CommonResponse(new UserLoginResponseVO("accessToken", "refreshToken"));
     }
 
-    public void join(User user) {
+    public CommonResponse join(UserJoinVO userJoinVO) {
+
+
+        return new CommonResponse();
+
 
     }
 }

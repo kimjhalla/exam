@@ -1,7 +1,8 @@
 package com.kb.exam.util;
 
+import com.kb.exam.domain.user.entity.User;
+import com.kb.exam.domain.user.entity.UserRole;
 import com.kb.exam.domain.user.vo.UserVO;
-import com.kb.exam.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.List;
 
 @Component
 @AllArgsConstructor
@@ -29,11 +31,11 @@ public class JwtTokenProvider {
     }
 
     // 토큰 생성
-    public String generateToken(User user) {
+    public String generateToken(User user, List<UserRole> userRoles) {
         Claims claims = Jwts.claims().setSubject(user.getEmail());
         claims.put("email", user.getEmail());
         claims.put("name", user.getName());
-        claims.put("roles", user.getRoles());
+        claims.put("roles", userRoles);
 
         return Jwts.builder()
                 .setClaims(claims)
@@ -59,7 +61,7 @@ public class JwtTokenProvider {
 
     // 토큰 유효성 검증
     public boolean validateToken(String token) {
-        try{
+        try {
             Jwts.parserBuilder().setSigningKey(getSigningKey()).build().parseClaimsJws(token);
             return true;
         } catch (Exception e) {
@@ -71,7 +73,7 @@ public class JwtTokenProvider {
     public Authentication getAuthentication(String token) {
         String email = this.extractEmail(token);
         UserDetails userDetails = userDetailsService.loadUserByUsername(email);
-        return new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
 
     // 토큰에서 클레임 추출

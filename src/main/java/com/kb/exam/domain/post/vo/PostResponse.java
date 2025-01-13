@@ -1,14 +1,9 @@
 package com.kb.exam.domain.post.vo;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+public interface PostResponse {
+    long getSeq();
 
-@Getter
-@Setter
-@AllArgsConstructor
-public class PostResponse {
-    private long seq;
-    private long userSeq;
-    private String title;
+    long getUserSeq();
+
+    String getTitle();
 }

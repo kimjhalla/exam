@@ -1,9 +1,8 @@
 package com.kb.exam.domain.user.vo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.kb.exam.entity.User;
-import com.kb.exam.entity.UserRole;
-import lombok.Builder;
+import com.kb.exam.domain.user.entity.User;
+import com.kb.exam.domain.user.entity.UserRole;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -26,14 +25,14 @@ public class UserVO implements UserDetails {
 
     private List<UserRole> roles;
 
-    public UserVO(User user) {
+    public UserVO(User user, List<UserRole> roles) {
         this.seq = user.getSeq();
         this.name = user.getName();
         this.email = user.getEmail();
         this.nickname = user.getNickname();
         this.registerDate = user.getRegisterDate();
         this.updateDate = user.getUpdateDate();
-        this.roles = user.getRoles();
+        this.roles = roles;
     }
 
     @Override

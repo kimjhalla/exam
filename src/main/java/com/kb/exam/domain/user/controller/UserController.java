@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-
-
+    
     @RequestMapping(method = RequestMethod.POST, value = "/join")
     public ResponseEntity<CommonResponse> join(@RequestBody UserJoinVO vo) {
         return ResponseEntity.ok(userService.join(vo));

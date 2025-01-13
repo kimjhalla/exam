@@ -19,13 +19,13 @@ public class PostController {
     private final JwtTokenProvider jwtTokenProvider;
 
     @GetMapping("")
-    public ResponseEntity<CommonResponse> getPosts() {
-        return ResponseEntity.ok(new CommonResponse(postService.getPosts()));
+    public ResponseEntity<CommonResponse> getPosts(int page, int size) {
+        return ResponseEntity.ok(new CommonResponse(postService.getPosts(page, size)));
     }
 
     @PostMapping("")
     public ResponseEntity<CommonResponse> addPost(@RequestBody PostVO vo) {
-        return ResponseEntity.ok(new CommonResponse());
+        return ResponseEntity.ok(postService.addPost(vo, jwtTokenProvider.getUserSeq()));
     }
 
     @GetMapping("/{postSeq}")

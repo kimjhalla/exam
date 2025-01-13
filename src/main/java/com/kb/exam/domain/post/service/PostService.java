@@ -15,6 +15,8 @@ public class PostService {
 
     public List<PostResponse> getPosts() {
         List<PostResponse> posts = new ArrayList<>();
+        posts.add(new PostResponse(1,1,"제목"));
+        posts.add(new PostResponse(2,2,"제목"));
         return posts;
     }
 

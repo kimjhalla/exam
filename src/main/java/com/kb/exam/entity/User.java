@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -18,4 +19,6 @@ public class User {
     private String nickname;
     private LocalDateTime registerDate;
     private LocalDateTime updateDate;
+
+    private List<UserRole> roles;
 }

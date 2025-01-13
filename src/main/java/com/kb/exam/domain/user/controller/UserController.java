@@ -18,12 +18,12 @@ public class UserController {
     private final UserService userService;
 
 
-    @RequestMapping(method = RequestMethod.POST, value = "")
+    @RequestMapping(method = RequestMethod.POST, value = "/join")
     public ResponseEntity<CommonResponse> join(@RequestBody UserJoinVO vo) {
         return ResponseEntity.ok(userService.join(vo));
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "")
+    @RequestMapping(method = RequestMethod.GET, value = "/login")
     public ResponseEntity<CommonResponse> login(@RequestBody UserLoginVO vo) {
         return ResponseEntity.ok(userService.login(vo));
     }

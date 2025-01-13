@@ -44,8 +44,8 @@ public class PostController {
     }
 
     @PostMapping("/{postSeq}/comments")
-    public ResponseEntity<CommonResponse> addComment(@PathVariable long postSeq, long userSeq, String comment) {
-        return ResponseEntity.ok(new CommonResponse(commentService.addComment(postSeq, userSeq, comment)));
+    public ResponseEntity<CommonResponse> addComment(@PathVariable long postSeq, String comment) {
+        return ResponseEntity.ok(new CommonResponse(commentService.addComment(postSeq, jwtTokenProvider.getUserSeq(), comment)));
     }
 
     @GetMapping("/{postSeq}/comments/{commentSeq}")

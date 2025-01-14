@@ -32,9 +32,9 @@ public class PostService {
     public PostDetailResponse getPost(long postSeq) {
         Optional<Post> optionalPost = postRepository.findById(postSeq);
         PostDetailResponse response = null;
-        if(optionalPost.isPresent()) {
+        if (optionalPost.isPresent()) {
             response = new PostDetailResponse(optionalPost.get());
-            response.setComments(commentService.getComments(postSeq,1,10));
+            response.setComments(commentService.getComments(postSeq, 1, 10));
         }
         return response;
     }
@@ -44,18 +44,18 @@ public class PostService {
         Post post = new Post(vo, userSeq);
         long postSeq = postRepository.save(post).getSeq();
 
-        AddPostAttachFile(vo.postAttachFileAddVOS(),postSeq);
+        AddPostAttachFile(vo.postAttachFileAddVOS(), postSeq);
 
         return new CommonResponse();
     }
 
     // 게시글 갱신
     @Transactional
-    public CommonResponse updatePost(PostUpdateVO vo, long userSeq) {
-        Optional<Post> optionalPost = postRepository.findById(vo.postSeq());
-        if(optionalPost.isPresent()) {
+    public CommonResponse updatePost(long postSeq, long userSeq, PostUpdateVO vo) {
+        Optional<Post> optionalPost = postRepository.findById(postSeq);
+        if (optionalPost.isPresent()) {
             Post post = optionalPost.get();
-            if(post.getUserSeq() == userSeq) {
+            if (post.getUserSeq() == userSeq) {
                 post.setTitle(vo.title());
                 post.setContent(vo.content());
                 post.setUpdateDate(LocalDateTime.now());
@@ -63,22 +63,22 @@ public class PostService {
 
                 postAttachFileRepository.deleteAllByPostSeq(post.getSeq());
 
-                AddPostAttachFile(vo.postAttachFileAddVOS(),vo.postSeq());
+                AddPostAttachFile(vo.postAttachFileAddVOS(), postSeq);
 
-                return new CommonResponse();
-            }else{
-                return new CommonResponse("잘못된 접근 입니다.");
+                return CommonResponse.success();
+            } else {
+                return CommonResponse.fail("잘못된 접근 입니다.");
             }
-        }else{
-            return new CommonResponse("게시글이 존재하지 않습니다.");
+        } else {
+            return CommonResponse.fail("게시글이 존재하지 않습니다.");
         }
     }
 
     private void AddPostAttachFile(List<PostAttachFileAddVO> postAttachFileAddVOS, long postSeq) {
         // 첨부파일 존재시 데이터 추가
-        if(postAttachFileAddVOS != null && !postAttachFileAddVOS.isEmpty()) {
+        if (postAttachFileAddVOS != null && !postAttachFileAddVOS.isEmpty()) {
             List<PostAttachFile> postAttachFiles = new ArrayList<>();
-            postAttachFileAddVOS.forEach(postAttachFileVO -> postAttachFiles.add(new PostAttachFile(postAttachFileVO,postSeq)));
+            postAttachFileAddVOS.forEach(postAttachFileVO -> postAttachFiles.add(new PostAttachFile(postAttachFileVO, postSeq)));
             postAttachFileRepository.saveAll(postAttachFiles);
         }
     }
@@ -86,18 +86,18 @@ public class PostService {
     @Transactional
     public CommonResponse deletePost(long postSeq, long userSeq) {
         Optional<Post> optionalPost = postRepository.findById(postSeq);
-        if(optionalPost.isPresent()) {
+        if (optionalPost.isPresent()) {
             Post post = optionalPost.get();
-            if(post.getUserSeq() == userSeq) {
+            if (post.getUserSeq() == userSeq) {
                 postRepository.deleteById(postSeq);
                 postAttachFileRepository.deleteAllByPostSeq(postSeq);
                 commentService.deleteComments(postSeq);
-                return new CommonResponse();
-            }else{
-                return new CommonResponse("잘못된 접근 입니다.");
+                return CommonResponse.success();
+            } else {
+                return CommonResponse.fail("잘못된 접근 입니다.");
             }
-        }else{
-            return new CommonResponse("게시글이 존재하지 않습니다.");
+        } else {
+            return CommonResponse.fail("게시글이 존재하지 않습니다.");
         }
     }
 }

@@ -10,12 +10,12 @@ public class CommonResponse {
     private String message;
     private Object data;
 
-    // 리턴값 없는 성공
+    // 데이터 없는 성공
     public static CommonResponse success() {
         return new CommonResponse();
     }
 
-    // 리턴값 존재하는 성공
+    // 데이터 있는 성공
     public static CommonResponse success(Object data) {
         return new CommonResponse(data);
     }

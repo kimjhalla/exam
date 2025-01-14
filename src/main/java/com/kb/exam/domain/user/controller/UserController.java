@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/v1/user")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
@@ -27,6 +27,12 @@ public class UserController {
     @RequestMapping(method = RequestMethod.GET, value = "/login")
     public ResponseEntity<CommonResponse> login(@RequestBody UserLoginVO vo) {
         return ResponseEntity.ok(userService.login(vo));
+    }
+
+    // 토큰 재발급
+    @RequestMapping(method = RequestMethod.GET, value = "/access-token")
+    public ResponseEntity<CommonResponse> token() {
+        return ResponseEntity.ok(userService.regenerateToken());
     }
 
 }

@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/posts")
+@RequestMapping("/v1/posts")
 @RestController
 @RequiredArgsConstructor
 public class PostController {
@@ -40,7 +40,7 @@ public class PostController {
     // 게시글 수정
     @PutMapping("/{postSeq}")
     public ResponseEntity<CommonResponse> updatePost(@PathVariable long postSeq, @RequestBody PostUpdateVO vo) {
-        return ResponseEntity.ok(new CommonResponse(postService.updatePost(vo, jwtTokenProvider.getUserSeq())));
+        return ResponseEntity.ok(new CommonResponse(postService.updatePost(postSeq, jwtTokenProvider.getUserSeq(), vo)));
     }
 
     // 게시글 삭제

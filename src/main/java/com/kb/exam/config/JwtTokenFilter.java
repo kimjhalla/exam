@@ -1,5 +1,6 @@
 package com.kb.exam.config;
 
+import com.kb.exam.domain.user.enums.TokenTypeEnum;
 import com.kb.exam.util.JwtTokenProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -27,10 +28,16 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
         String token = resolveToken(request);
+        String tokenType = TokenTypeEnum.ACCESS_TOKEN.name();
+        String uri = request.getRequestURI();
 
-        if (StringUtils.hasText(token) && jwtTokenProvider.validateToken(token)) {
+        if (uri.endsWith("/user/access-token")) {
+            tokenType = TokenTypeEnum.REFRESH_TOKEN.name();
+        }
+
+        if (StringUtils.hasText(token) && jwtTokenProvider.validateToken(token, tokenType)) {
             // TODO User 테이블 조회 이 부분에 redis 캐시 적용
-            Authentication authentication = jwtTokenProvider.getAuthentication(token);
+            Authentication authentication = jwtTokenProvider.getAuthentication(token, tokenType);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 

@@ -13,6 +13,7 @@ import com.kb.exam.util.JwtTokenProvider;
 import com.kb.exam.util.Utils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,7 @@ public class UserService {
     }
 
     // 가입
+    @Transactional
     public CommonResponse join(UserJoinVO userJoinVO) {
         User user = new User(userJoinVO);
         userRepository.save(user);

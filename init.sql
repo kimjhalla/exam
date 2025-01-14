@@ -46,8 +46,9 @@ create table exam.USER
 
 create table exam.USER_ROLE
 (
-    userSeq  bigint       not null
+    seq          bigint auto_increment
         primary key,
+    userSeq  bigint       not null,
     roleCode varchar(255) not null
 );
 

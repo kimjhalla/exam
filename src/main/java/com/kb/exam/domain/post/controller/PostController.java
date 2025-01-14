@@ -21,13 +21,13 @@ public class PostController {
 
     // 게시글 목록 페이징 조회
     @GetMapping("")
-    public ResponseEntity<CommonResponse> getPosts(int page, int size) {
+    public ResponseEntity<CommonResponse> getPosts(@RequestParam("page") int page, @RequestParam("size") int size) {
         return ResponseEntity.ok(new CommonResponse(postService.getPosts(page, size)));
     }
 
     // 게시글 상세 조회
     @GetMapping("/{postSeq}")
-    public ResponseEntity<CommonResponse> getPost(@PathVariable long postSeq) {
+    public ResponseEntity<CommonResponse> getPost(@PathVariable("postSeq") long postSeq) {
         return ResponseEntity.ok(new CommonResponse(postService.getPost(postSeq)));
     }
 
@@ -39,31 +39,31 @@ public class PostController {
 
     // 게시글 수정
     @PutMapping("/{postSeq}")
-    public ResponseEntity<CommonResponse> updatePost(@PathVariable long postSeq, @RequestBody PostUpdateVO vo) {
+    public ResponseEntity<CommonResponse> updatePost(@PathVariable("postSeq") long postSeq, @RequestBody PostUpdateVO vo) {
         return ResponseEntity.ok(new CommonResponse(postService.updatePost(postSeq, jwtTokenProvider.getUserSeq(), vo)));
     }
 
     // 게시글 삭제
     @DeleteMapping("/{postSeq}")
-    public ResponseEntity<CommonResponse> deletePost(@PathVariable long postSeq) {
+    public ResponseEntity<CommonResponse> deletePost(@PathVariable("postSeq") long postSeq) {
         return ResponseEntity.ok(new CommonResponse(postService.deletePost(postSeq, jwtTokenProvider.getUserSeq())));
     }
 
     // 특정 게시글의 댓글 목록 조회
     @PostMapping("/{postSeq}/comments")
-    public ResponseEntity<CommonResponse> addComment(@PathVariable long postSeq, String comment) {
+    public ResponseEntity<CommonResponse> addComment(@PathVariable("postSeq") long postSeq, @RequestParam String comment) {
         return ResponseEntity.ok(new CommonResponse(commentService.addComment(postSeq, jwtTokenProvider.getUserSeq(), comment)));
     }
 
     // 특정 댓글 수정
     @PutMapping("/{postSeq}/comments/{commentSeq}")
-    public ResponseEntity<CommonResponse> updateComment(@PathVariable long postSeq, @PathVariable long commentSeq, String comment) {
+    public ResponseEntity<CommonResponse> updateComment(@PathVariable("commentSeq") long commentSeq, @RequestParam String comment) {
         return ResponseEntity.ok(new CommonResponse(commentService.updateComment(commentSeq, jwtTokenProvider.getUserSeq(), comment)));
     }
 
     // 특정 댓글 삭제
     @DeleteMapping("/{postSeq}/comments/{commentSeq}")
-    public ResponseEntity<CommonResponse> deleteComment(@PathVariable long postSeq, @PathVariable long commentSeq) {
+    public ResponseEntity<CommonResponse> deleteComment(@PathVariable("commentSeq") long commentSeq) {
         return ResponseEntity.ok(new CommonResponse(commentService.deleteComment(commentSeq, jwtTokenProvider.getUserSeq())));
     }
 }

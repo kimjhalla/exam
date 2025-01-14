@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "USER")
 public class User {
 
     @Id
@@ -31,10 +32,10 @@ public class User {
     @Column(nullable = false)
     private String nickname;
 
-    @Column(nullable = false, updatable = false)
+    @Column(name = "registerDate", nullable = false, updatable = false)
     private LocalDateTime registerDate;
 
-    @Column(nullable = false)
+    @Column(name = "updateDate", nullable = false)
     private LocalDateTime updateDate;
 
     public User(UserJoinVO vo) {

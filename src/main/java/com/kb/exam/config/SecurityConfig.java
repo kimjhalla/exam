@@ -34,7 +34,6 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/posts/\\d+/comments/\\d+").hasAuthority(UserRoleEnum.COMMENT_USER.name())
 
                         .requestMatchers(HttpMethod.GET, "/posts/\\d+/comments").hasAuthority(UserRoleEnum.POST_USER.name()) // 게시글 댓글 목록 조회도 동일
-                        .requestMatchers(HttpMethod.GET, "/posts/\\d+/comments/\\d+").hasAuthority(UserRoleEnum.POST_USER.name()) // 게시글 댓글 상세 조회도 동일
 
                         .requestMatchers("/posts").hasAuthority(UserRoleEnum.POST_USER.name()) // 게시글은 로그인 하고 특정 권한을 가진 유저만 가능
                         .anyRequest().authenticated()

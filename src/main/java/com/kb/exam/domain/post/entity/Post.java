@@ -1,32 +1,34 @@
 package com.kb.exam.domain.post.entity;
 
-import com.kb.exam.domain.post.vo.PostVO;
+import com.kb.exam.domain.post.vo.PostAddVO;
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
+@Getter
+@Setter
+@Table(name = "POST")
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long seq;
-    @Column(nullable = false)
     private long userSeq;
-    @Column(nullable = false)
     private String title;
-    @Column(nullable = false)
     private String content;
-    @Column(nullable = false, updatable = false)
+    @Column(updatable = false)
     private LocalDateTime registerDate;
-    @Column(nullable = false)
+    @Setter
     private LocalDateTime updateDate;
 
-    public Post(PostVO postVO, long userSeq) {
+    public Post(PostAddVO postAddVO, long userSeq) {
         this.userSeq = userSeq;
-        this.title = postVO.title();
-        this.content = postVO.content();
+        this.title = postAddVO.title();
+        this.content = postAddVO.content();
         LocalDateTime now = LocalDateTime.now();
         this.registerDate = now;
         this.updateDate = now;

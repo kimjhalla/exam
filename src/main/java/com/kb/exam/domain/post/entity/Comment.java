@@ -1,22 +1,35 @@
 package com.kb.exam.domain.post.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@Table(name = "COMMENT")
+@NoArgsConstructor
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long seq;
-    @Column(nullable = false)
     private long postSeq;
-    @Column(nullable = false)
     private long userSeq;
-    @Column(nullable = false)
-    private String comment;
-    @Column(nullable = false, updatable = false)
+    @Setter
+    private String content;
+    @Column(updatable = false)
     private LocalDateTime registerDate;
-    @Column(nullable = false)
+    @Setter
     private LocalDateTime updateDate;
+
+    public Comment(long postSeq, long userSeq, String content) {
+        this.postSeq = postSeq;
+        this.userSeq = userSeq;
+        this.content = content;
+        LocalDateTime now = LocalDateTime.now();
+        this.registerDate = now;
+        this.updateDate = now;
+    }
 }

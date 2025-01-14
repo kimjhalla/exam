@@ -20,19 +20,5 @@ class JwtTokenProviderTest {
     @Test
     void generateToken() {
 
-        List<UserRole> userRoles = new ArrayList<>();
-        userRoles.add(new UserRole(1, UserRoleEnum.POST_USER.name()));
-        userRoles.add(new UserRole(1, UserRoleEnum.COMMENT_USER.name()));
-
-        System.out.println(jwtTokenProvider.generateToken(new User(
-                1,
-                "email@email.com",
-                "password",
-                "name",
-                "nickname",
-                LocalDateTime.now(),
-                LocalDateTime.now(),
-                userRoles
-        )));
     }
 }

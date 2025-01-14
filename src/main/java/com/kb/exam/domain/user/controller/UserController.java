@@ -16,12 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-    
+
+    // 회원 가입
     @RequestMapping(method = RequestMethod.POST, value = "/join")
     public ResponseEntity<CommonResponse> join(@RequestBody UserJoinVO vo) {
         return ResponseEntity.ok(userService.join(vo));
     }
 
+    // 회원 로그인
     @RequestMapping(method = RequestMethod.GET, value = "/login")
     public ResponseEntity<CommonResponse> login(@RequestBody UserLoginVO vo) {
         return ResponseEntity.ok(userService.login(vo));

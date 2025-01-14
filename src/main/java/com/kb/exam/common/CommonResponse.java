@@ -1,12 +1,29 @@
 package com.kb.exam.common;
 
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class CommonResponse {
     private final int code;
     private String message;
     private Object data;
+
+    // 리턴값 없는 성공
+    public static CommonResponse success() {
+        return new CommonResponse();
+    }
+
+    // 리턴값 존재하는 성공
+    public static CommonResponse success(Object data) {
+        return new CommonResponse(data);
+    }
+
+    // 실패는 메시지 설정
+    public static CommonResponse fail(String message) {
+        return new CommonResponse(message);
+    }
 
     // 데이터 없는 성공
     public CommonResponse() {

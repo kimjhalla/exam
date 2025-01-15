@@ -3,10 +3,12 @@ package com.kb.exam.domain.user.vo;
 import com.kb.exam.domain.user.enums.UserRoleEnum;
 import com.kb.exam.exception.CustomValidationException;
 import com.kb.exam.util.Utils;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
+@Schema(title = "회원 가입 요청 VO")
 public record UserJoinVO(String name, String nickname, String email, String password, List<String> roles) {
 
     public UserJoinVO {

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name="User",description = "회원 관련 API")
+@Tag(name = "User", description = "회원 관련 API")
 @RestController
 @RequestMapping("/v1/user")
 @RequiredArgsConstructor
@@ -28,7 +28,7 @@ public class UserController {
     }
 
     // 회원 로그인
-    @RequestMapping(method = RequestMethod.GET, value = "/login")
+    @RequestMapping(method = RequestMethod.POST, value = "/login")
     @Operation(summary = "회원 로그인 API", description = "이메일,비밀번호 로그인 처리 응답은 accessToken,refreshToken을 리턴한다.")
     public ResponseEntity<CommonResponse> login(@RequestBody UserLoginVO vo) {
         return ResponseEntity.ok(userService.login(vo));

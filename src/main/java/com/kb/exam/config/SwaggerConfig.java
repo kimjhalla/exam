@@ -1,12 +1,33 @@
 package com.kb.exam.config;
 
+
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class SwaggerConfig {
+    @Bean
+    public OpenAPI customOpenAPI() {
+        // SecurityScheme 정의
+        SecurityScheme bearerAuthScheme = new SecurityScheme()
+                .type(SecurityScheme.Type.HTTP)
+                .scheme("bearer")
+                .bearerFormat("JWT"); // (선택) 토큰 형식
+
+        // SecurityRequirement 추가
+        SecurityRequirement securityRequirement = new SecurityRequirement()
+                .addList("BearerAuth"); // 스킴 이름과 일치해야 함
+
+        return new OpenAPI()
+                .components(new Components().addSecuritySchemes("BearerAuth", bearerAuthScheme))
+                .addSecurityItem(securityRequirement);
+    }
 
     @Bean
     public GroupedOpenApi boardGroupedOpenApi() {
@@ -24,6 +45,7 @@ public class SwaggerConfig {
                                                         .version("1.0.0") // API 버전
                                         )
                 )
+
                 .build();
     }
 }

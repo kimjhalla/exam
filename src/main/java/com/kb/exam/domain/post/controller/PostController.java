@@ -33,7 +33,7 @@ public class PostController {
     @GetMapping("/{postSeq}")
     @Operation(summary = "게시글 상세 조회 API", description = "특정 게시글을 조회한다. 특정 게시글의 답글 목록도 조회. POST_USER 권한 접근 가능")
     public ResponseEntity<CommonResponse> getPost(@PathVariable("postSeq") long postSeq) {
-        return ResponseEntity.ok(new CommonResponse(postService.getPost(postSeq)));
+        return ResponseEntity.ok(postService.getPost(postSeq));
     }
 
     // 게시글 등록
@@ -68,14 +68,14 @@ public class PostController {
     @PostMapping("/{postSeq}/comments")
     @Operation(summary = "특정 게시글의 답글 등록 API", description = "특정 게시글의 답글을 등록한다. COMMENT_USER 권한 접근 가능")
     public ResponseEntity<CommonResponse> addComment(@PathVariable("postSeq") long postSeq, @RequestParam("content") String content) {
-        return ResponseEntity.ok(new CommonResponse(commentService.addComment(postSeq, jwtTokenProvider.getUserSeq(), content)));
+        return ResponseEntity.ok(commentService.addComment(postSeq, jwtTokenProvider.getUserSeq(), content));
     }
 
     // 특정 답글 수정
     @PutMapping("/{postSeq}/comments/{commentSeq}")
     @Operation(summary = "특정 게시글의 답글 수정 API", description = "특정 게시글의 답글을 수정한다. 동일한 작성자만 수정가능. COMMENT_USER 권한 접근 가능")
     public ResponseEntity<CommonResponse> updateComment(@PathVariable("commentSeq") long commentSeq, @RequestParam("content") String content) {
-        return ResponseEntity.ok(new CommonResponse(commentService.updateComment(commentSeq, jwtTokenProvider.getUserSeq(), content)));
+        return ResponseEntity.ok(commentService.updateComment(commentSeq, jwtTokenProvider.getUserSeq(), content));
     }
 
     // 특정 답글 삭제

@@ -23,7 +23,7 @@ class PostServiceTest {
 
     @Test
     public void getPost() {
-        System.out.println(postService.getPost(1).getTitle());
+        System.out.println(postService.getPost(1));
     }
 
     @Test

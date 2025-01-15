@@ -29,15 +29,17 @@ public class PostService {
     }
 
     // 게시글 상세 조회
-    public PostDetailResponse getPost(long postSeq) {
+    public CommonResponse getPost(long postSeq) {
         Optional<Post> optionalPost = postRepository.findById(postSeq);
-        PostDetailResponse response = null;
+
         if (optionalPost.isPresent()) {
-            response = new PostDetailResponse(optionalPost.get());
+            PostDetailResponse response = new PostDetailResponse(optionalPost.get());
             response.setComments(commentService.getComments(postSeq, 1, 10));
             response.setAttachFiles(postAttachFileRepository.findAllByPostSeq(postSeq));
+            return CommonResponse.success(response);
+        } else {
+            return CommonResponse.fail("게시글이 존재하지 않습니다.");
         }
-        return response;
     }
 
     // 게시글 추가

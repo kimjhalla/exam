@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name="POST",description = "게시글/댓글 관련 API")
+@Tag(name = "POST", description = "게시글/답글 관련 API")
 @RequestMapping("/v1/posts")
 @RestController
 @RequiredArgsConstructor
@@ -57,23 +57,30 @@ public class PostController {
         return ResponseEntity.ok(new CommonResponse(postService.deletePost(postSeq, jwtTokenProvider.getUserSeq())));
     }
 
-    // 특정 게시글의 댓글 등록
+    // 특정 게시글의 답글 목록 페이징 조회
+    @GetMapping("/{postSeq}/comments")
+    @Operation(summary = "특정 게시글의 댓글 목록 조회 API", description = "댓글 목록을 page와 size를 받아 조회한다. POST_USER 권한 접근 가능")
+    public ResponseEntity<CommonResponse> getComments(@PathVariable("postSeq") long postSeq, @RequestParam("page") int page, @RequestParam("size") int size) {
+        return ResponseEntity.ok(new CommonResponse(commentService.getComments(postSeq, page, size)));
+    }
+
+    // 특정 게시글의 답글 등록
     @PostMapping("/{postSeq}/comments")
-    @Operation(summary = "특정 게시글의 댓글 등록 API", description = "특정 게시글의 댓글을 등록한다. COMMENT_USER 권한 접근 가능")
+    @Operation(summary = "특정 게시글의 답글 등록 API", description = "특정 게시글의 답글을 등록한다. COMMENT_USER 권한 접근 가능")
     public ResponseEntity<CommonResponse> addComment(@PathVariable("postSeq") long postSeq, @RequestParam("content") String content) {
         return ResponseEntity.ok(new CommonResponse(commentService.addComment(postSeq, jwtTokenProvider.getUserSeq(), content)));
     }
 
-    // 특정 댓글 수정
+    // 특정 답글 수정
     @PutMapping("/{postSeq}/comments/{commentSeq}")
-    @Operation(summary = "특정 게시글의 댓글 수정 API", description = "특정 게시글의 댓글을 수정한다. 동일한 작성자만 수정가능. COMMENT_USER 권한 접근 가능")
+    @Operation(summary = "특정 게시글의 답글 수정 API", description = "특정 게시글의 답글을 수정한다. 동일한 작성자만 수정가능. COMMENT_USER 권한 접근 가능")
     public ResponseEntity<CommonResponse> updateComment(@PathVariable("commentSeq") long commentSeq, @RequestParam("content") String content) {
         return ResponseEntity.ok(new CommonResponse(commentService.updateComment(commentSeq, jwtTokenProvider.getUserSeq(), content)));
     }
 
-    // 특정 댓글 삭제
+    // 특정 답글 삭제
     @DeleteMapping("/{postSeq}/comments/{commentSeq}")
-    @Operation(summary = "특정 게시글의 댓글 삭제 API", description = "특정 게시글의 댓글을 삭제한다. 동일한 작성자만 삭제가능. COMMENT_USER 권한 접근 가능")
+    @Operation(summary = "특정 게시글의 답글 삭제 API", description = "특정 게시글의 답글을 삭제한다. 동일한 작성자만 삭제가능. COMMENT_USER 권한 접근 가능")
     public ResponseEntity<CommonResponse> deleteComment(@PathVariable("commentSeq") long commentSeq) {
         return ResponseEntity.ok(commentService.deleteComment(commentSeq, jwtTokenProvider.getUserSeq()));
     }

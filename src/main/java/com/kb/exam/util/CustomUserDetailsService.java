@@ -28,7 +28,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     @Cacheable(value = "userDetail",key = "#p0")
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        System.out.println(email);
         Optional<User> optionalUser = userRepository.findByEmail(email);
 
         if (optionalUser.isEmpty()) {

@@ -34,7 +34,6 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         if (uri.endsWith("/user/access-token")) {
             tokenType = TokenTypeEnum.REFRESH_TOKEN.name();
         }
-        System.out.println(uri);
 
         if (StringUtils.hasText(token) && jwtTokenProvider.validateToken(token, tokenType)) {
             Authentication authentication = jwtTokenProvider.getAuthentication(token, tokenType);

@@ -34,9 +34,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         if (uri.endsWith("/user/access-token")) {
             tokenType = TokenTypeEnum.REFRESH_TOKEN.name();
         }
+        System.out.println(uri);
 
         if (StringUtils.hasText(token) && jwtTokenProvider.validateToken(token, tokenType)) {
-            // TODO User 테이블 조회 이 부분에 redis 캐시 적용
             Authentication authentication = jwtTokenProvider.getAuthentication(token, tokenType);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }

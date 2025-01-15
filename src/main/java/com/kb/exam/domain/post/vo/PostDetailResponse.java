@@ -1,6 +1,7 @@
 package com.kb.exam.domain.post.vo;
 
 import com.kb.exam.domain.post.entity.Post;
+import com.kb.exam.domain.post.entity.PostAttachFile;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +14,7 @@ public class PostDetailResponse {
     private long userSeq;
     private String title;
     private String content;
+    private List<PostAttachFileResponse> attachFiles;
     private List<CommentResponse> comments;
 
     public PostDetailResponse(Post post) {

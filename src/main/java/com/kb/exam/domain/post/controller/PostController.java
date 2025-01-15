@@ -49,21 +49,21 @@ public class PostController {
         return ResponseEntity.ok(new CommonResponse(postService.deletePost(postSeq, jwtTokenProvider.getUserSeq())));
     }
 
-    // 특정 게시글의 댓글 목록 조회
+    // 특정 게시글의 댓글 등록
     @PostMapping("/{postSeq}/comments")
-    public ResponseEntity<CommonResponse> addComment(@PathVariable("postSeq") long postSeq, @RequestParam String comment) {
-        return ResponseEntity.ok(new CommonResponse(commentService.addComment(postSeq, jwtTokenProvider.getUserSeq(), comment)));
+    public ResponseEntity<CommonResponse> addComment(@PathVariable("postSeq") long postSeq, @RequestParam("content") String content) {
+        return ResponseEntity.ok(new CommonResponse(commentService.addComment(postSeq, jwtTokenProvider.getUserSeq(), content)));
     }
 
     // 특정 댓글 수정
     @PutMapping("/{postSeq}/comments/{commentSeq}")
-    public ResponseEntity<CommonResponse> updateComment(@PathVariable("commentSeq") long commentSeq, @RequestParam String comment) {
-        return ResponseEntity.ok(new CommonResponse(commentService.updateComment(commentSeq, jwtTokenProvider.getUserSeq(), comment)));
+    public ResponseEntity<CommonResponse> updateComment(@PathVariable("commentSeq") long commentSeq, @RequestParam("content") String content) {
+        return ResponseEntity.ok(new CommonResponse(commentService.updateComment(commentSeq, jwtTokenProvider.getUserSeq(), content)));
     }
 
     // 특정 댓글 삭제
     @DeleteMapping("/{postSeq}/comments/{commentSeq}")
     public ResponseEntity<CommonResponse> deleteComment(@PathVariable("commentSeq") long commentSeq) {
-        return ResponseEntity.ok(new CommonResponse(commentService.deleteComment(commentSeq, jwtTokenProvider.getUserSeq())));
+        return ResponseEntity.ok(commentService.deleteComment(commentSeq, jwtTokenProvider.getUserSeq()));
     }
 }

@@ -34,11 +34,11 @@ public class SecurityConfig {
                         ).permitAll() // 위의 경로에 대해 접근 허용
                         .requestMatchers("/v1/user/**").permitAll() // 로그인, 가입은 전체 접근 가능
                         // 댓글 작성/수정/삭제는 댓글 권한 유저만 가능
-                        .requestMatchers(HttpMethod.POST, "/v1/posts/\\d+/comments").hasAuthority(UserRoleEnum.COMMENT_USER.name())
-                        .requestMatchers(HttpMethod.PUT, "/v1/posts/\\d+/comments/\\d+").hasAuthority(UserRoleEnum.COMMENT_USER.name())
-                        .requestMatchers(HttpMethod.DELETE, "/v1/posts/\\d+/comments/\\d+").hasAuthority(UserRoleEnum.COMMENT_USER.name())
+                        .requestMatchers(HttpMethod.POST, "/v1/posts/*/comments").hasAuthority(UserRoleEnum.COMMENT_USER.name())
+                        .requestMatchers(HttpMethod.PUT, "/v1/posts/*/comments/*").hasAuthority(UserRoleEnum.COMMENT_USER.name())
+                        .requestMatchers(HttpMethod.DELETE, "/v1/posts/*/comments/*").hasAuthority(UserRoleEnum.COMMENT_USER.name())
 
-                        .requestMatchers(HttpMethod.GET, "/v1/posts/\\d+/comments").hasAuthority(UserRoleEnum.POST_USER.name()) // 게시글 댓글 목록 조회도 동일
+                        .requestMatchers(HttpMethod.GET, "/v1/posts/*/comments").hasAuthority(UserRoleEnum.POST_USER.name()) // 게시글 댓글 목록 조회도 동일
 
                         .requestMatchers("/v1/posts").hasAuthority(UserRoleEnum.POST_USER.name()) // 게시글은 로그인 하고 특정 권한을 가진 유저만 가능
                         .anyRequest().authenticated()

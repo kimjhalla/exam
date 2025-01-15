@@ -35,6 +35,7 @@ public class PostService {
         if (optionalPost.isPresent()) {
             response = new PostDetailResponse(optionalPost.get());
             response.setComments(commentService.getComments(postSeq, 1, 10));
+            response.setAttachFiles(postAttachFileRepository.findAllByPostSeq(postSeq));
         }
         return response;
     }

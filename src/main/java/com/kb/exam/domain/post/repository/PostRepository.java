@@ -12,7 +12,7 @@ public interface PostRepository extends CrudRepository<Post, Long> {
     @NativeQuery(value = """
             SELECT seq, userSeq, title
             FROM POST
-            ORDER BY seq
+            ORDER BY seq desc
             LIMIT :size OFFSET :offset
             """)
     List<PostResponse> findAllBySizeAndOffset(@Param("size") int size, @Param("offset") int offset);
